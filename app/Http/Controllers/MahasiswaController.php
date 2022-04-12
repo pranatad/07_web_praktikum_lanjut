@@ -15,11 +15,20 @@ class MahasiswaController extends Controller
     */
     public function index()
     {
-
-        $mahasiswa = $mahasiswa = DB::table('mahasiswa')->get(); 
+        $cari = Mahasiswa::latest();
+        if(request('search')) {
+            $cari->where('nama', 'like', '%' . request('search') . '%');
+        }
+       
+        $mahasiswa = $mahasiswa = DB::table('mahasiswa')->paginate(3)->withQueryString(); 
         $posts = Mahasiswa::orderBy('Nim', 'desc')->paginate(6);
-        return view('mahasiswa.index', compact('mahasiswa'));
-        with('i', (request()->input('page', 1) - 1) * 5);
+        return view('mahasiswa.index', compact('mahasiswa'), [
+            "cari" => $cari->get()
+        ]);
+        with('i', (request('search')->input('page', 1) - 1) * 5);
+        return view('cari', [
+            "cari" => $cari->get() 
+        ]);
     }
     public function create()
     {
@@ -33,6 +42,9 @@ class MahasiswaController extends Controller
     'Nama' => 'required',
     'Kelas' => 'required',
     'Jurusan' => 'required',
+    'Email' => 'required',
+    'Alamat' => 'required',
+    'TanggalLahir' => 'required',
     ]);
 
     Mahasiswa::create($request->all());
@@ -59,6 +71,9 @@ class MahasiswaController extends Controller
     'Nama' => 'required',
     'Kelas' => 'required',
     'Jurusan' => 'required',
+    'Email' => 'required',
+    'Alamat' => 'required',
+    'TanggalLahir' => 'required',
     ]);
 
     //Mahasiswa::find($Nim)->update($request->all());
@@ -72,4 +87,5 @@ class MahasiswaController extends Controller
     $Mahasiswa = Mahasiswa::where('nim', $Nim)->firstOrFail()->delete();
     return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa Berhasil Dihapus');
   }
+
 };

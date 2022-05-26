@@ -3,13 +3,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model; 
 use App\Models\Mahasiswa;
-use App\Models\Kelas;
 
 class Mahasiswa extends Model 
 {
     protected $table='mahasiswa'; 
 
-    protected $primaryKey = 'nim'; 
+    protected $primaryKey = 'Nim'; 
     /**
     * The attributes that are mass assignable.
     *
@@ -18,7 +17,7 @@ class Mahasiswa extends Model
     protected $fillable = [
         'Nim',
         'Nama',
-        'kelas_id',
+        'Kelas',
         'Jurusan',
         'Email',
         'Alamat',

@@ -18,7 +18,7 @@ class Mahasiswa extends Model
     protected $fillable = [
         'Nim',
         'Nama',
-        'kelas_id',
+        'Kelas',
         'Jurusan',
         'Email',
         'Alamat',
@@ -26,6 +26,6 @@ class Mahasiswa extends Model
     ];
 
     public function kelas() {
-        return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(kelas::class);
     }
 };

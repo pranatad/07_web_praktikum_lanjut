@@ -37,13 +37,13 @@
         <th>Email</th>
         <th>Alamat</th>
         <th>Tanggal Lahir</th>
-        <th width="280px">Action</th>
+        <th width="300px">Action</th>
         </tr>
     @foreach ($paginate as $mhs)
         <tr>
         <td>{{ $mhs ->nim }}</td>
         <td>{{ $mhs ->nama }}</td>
-        <td>{{ $mhs ->kelas->nama_kelas }}</td>
+        <td>{{ $mhs ->kelas ->nama_kelas }}</td>
         <td>{{ $mhs ->jurusan }}</td>
         <td>{{ $mhs ->email }}</td>
         <td>{{ $mhs ->alamat }}</td>
@@ -55,6 +55,7 @@
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>
+            <a class="btn btn-warning" href="#">Nilai</a>
     </form>
         </td>
         </tr>

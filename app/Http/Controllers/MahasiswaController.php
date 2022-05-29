@@ -59,13 +59,14 @@ class MahasiswaController extends Controller
     $mahasiswa->nim = $request->get('Nim');
     $mahasiswa->nama = $request->get('Nama');
     $mahasiswa->jurusan = $request->get('Jurusan');
+    $mahasiswa->kelas_id = $request->get('Kelas');
     $mahasiswa->email = $request->get('Email');
     $mahasiswa->alamat = $request->get('Alamat');
     $mahasiswa->tanggallahir = $request->get('TanggalLahir');
     $mahasiswa->save();
 
     $kelas = new Kelas;
-    $kelas->id = $request->get('Kelas');
+    $kelas->kelas_id = $request->get('Kelas');
 
     $mahasiswa->kelas()->associate($kelas);
     $mahasiswa->save();

@@ -54,8 +54,6 @@
                         <label for="TanggalLahir">Tanggal Lahir</label>
                         <input type="TanggalLahir" name="TanggalLahir" class="form-control" id="TanggalLahir" aria-describedby="TanggalLahir">
                     </div>
-                    <label for="image">Feature Image: </label>
-        <input type="file" class="form-control" required="required" name="image"></br>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>

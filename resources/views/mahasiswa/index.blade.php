@@ -38,6 +38,8 @@
         <th>Alamat</th>
         <th>Tanggal Lahir</th>
         <th width="300px">Action</th>
+        <th width="50px">Foto</th>
+        
         </tr>
     @foreach ($paginate as $mhs)
         <tr>
@@ -52,10 +54,12 @@
     <form action="{{ route('mahasiswa.destroy',['mahasiswa'=>$mhs->nim]) }}" method="POST">
             <a class="btn btn-info" href="{{ route('mahasiswa.show',$mhs->nim) }}">Show</a>
             <a class="btn btn-primary" href="{{ route('mahasiswa.edit',$mhs->nim) }}">Edit</a>
+             
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>
-            <a class="btn btn-warning" href="#">Nilai</a>
+            <a class="btn btn-warning" href="{{ route('mahasiswa.nilai') }}">Nilai</a>
+           
     </form>
         </td>
         </tr>

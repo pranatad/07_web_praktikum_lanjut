@@ -21,22 +21,35 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::with('kelas')->get();
         $paginate = Mahasiswa::orderBy('id_mahasiswa','asc')->paginate(3);
         return view('mahasiswa.index', ['mahasiswa' => $mahasiswa,'paginate'=>$paginate]);
+
+       // $cari = Mahasiswa::latest();
+    //    if(request('search')) {
+      //      $cari->where('nama', 'like', '%' . request('search') . '%');
+     //   }
+       
+     //   $mahasiswa = $mahasiswa = DB::table('mahasiswa')->paginate(3)->withQueryString(); 
+      //  $posts = Mahasiswa::orderBy('Nim', 'desc')->paginate(6);
+     //   return view('mahasiswa.index', compact('mahasiswa'), [
+       //     "cari" => $cari->get()
+      //  ]);
+      //  with('i', (request('search')->input('page', 1) - 1) * 5);
+      //  return view('cari', [
+      //      "cari" => $cari->get() 
+      //  ]);
     
     }
     public function create()
     {
         $kelas = Kelas::all();
         return view('mahasiswa.create',['kelas' => $kelas]);
-
+        //return view('mahasiswa.create');
     }
 
     public function nilai()
     {
-       $mahasiswa_matakuliah = Mahasiswa_Matakuliah::with('mahasiswa_matakuliah')->get();
-        return view('mahasiswa.nilai');
-    
-    }
-
+       $matakuliah = Matakuliah::with('mahasiswa_matakuliah')->where('id_mahasiswa', $id_mahasiswa)->first();
+        return view('mahasiswa.nilai', ['MataKuliah' => $matakuliah]);
+  }
     public function store(Request $request)
     {
 
@@ -67,7 +80,7 @@ class MahasiswaController extends Controller
     $mahasiswa->save();
     
 
-
+    //Mahasiswa::create($request->all());
     return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa Berhasil Ditambahkan');
 
     }
@@ -75,14 +88,17 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = Mahasiswa::with('kelas')->where('nim', $Nim)->first();
         return view('mahasiswa.detail', ['Mahasiswa' => $mahasiswa]);
-   
+    //$Mahasiswa = Mahasiswa::find($Nim);
+    //$Mahasiswa = Mahasiswa::where('nim', $Nim)->firstOrFail();
+    //return view('mahasiswa.detail', compact('Mahasiswa'));
     }
     public function edit($Nim)
     {
     $mahasiswa = Mahasiswa::with('kelas')->where('nim', $Nim)->first();
     $kelas = Kelas::all();
     return view('mahasiswa.edit', compact('mahasiswa','kelas'));
-   
+    //$Mahasiswa = DB::table('mahasiswa')->where('nim', $Nim)->first();;
+    //return view('mahasiswa.edit', compact('Mahasiswa'));
     }
     public function update(Request $request, $Nim)
     {
@@ -112,15 +128,18 @@ class MahasiswaController extends Controller
     $mahasiswa->kelas()->associate($kelas);
     $mahasiswa->save();
 
-  
+    //Mahasiswa::find($Nim)->update($request->all());
+    //$Mahasiswa = Mahasiswa::where('nim', $Nim)->firstOrFail()->update($request->all());
     return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa Berhasil Diupdate');
     }
     public function destroy($Nim)
     {
 
-    
+    //Mahasiswa::find($Nim)->delete();
     $Mahasiswa = Mahasiswa::where('nim', $Nim)->firstOrFail()->delete();
     return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa Berhasil Dihapus');
   }
+
+  
 
 };
